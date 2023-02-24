@@ -4,4 +4,4 @@ Welcome to OPPO_R11_Series_Parted_ToolBox
 ```
 gcc OPPO_R11_Series_Parted_ToolBox.c -o OPPO_R11_Series_Parted_ToolBox.exe
 ```
-Plase put it in the same directory as platfome-tools and parted
+Plase put it in the same directory as [platfome-tools](https://developer.android.google.cn/studio/releases/platform-tools?hl=zh-cn) and parted
