@@ -428,7 +428,6 @@ int main(void)
         }
         printf("任务执行完成!\n");
         printf("按回车键返回主菜单");
-        safe_flush(stdin); //清除scanf缓存
         getchar();
         system("CLS"); //清屏
     }
@@ -474,20 +473,11 @@ int menu(void)
         if (scanf("%d", &int_choose) == 1)
         {
             safe_flush(stdin); //清除scanf缓存
+            system("CLS"); //清屏
             break;
         }
         else
         {
-            system("CLS"); //清屏
-            bar();
-            printf("\n");
-            printf("\n");
-            printf("    您输入的数值有误，请重新输入!        \n");
-            printf("\n");
-            printf("\n");
-            bar();
-            safe_flush(stdin); //清除scanf缓存
-            getchar();
             system("CLS"); //清屏
             return -1; //去除错误输入
         }
