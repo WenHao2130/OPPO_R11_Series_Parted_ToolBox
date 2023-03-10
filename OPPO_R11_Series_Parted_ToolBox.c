@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define VERSION "2.0"
+#define VERSION "2.1"
 void system_plus(const char *command); //基于system函数,但是加了命令是否执行成功判断
 void bar1(void); //分隔栏1(=====)
 void bar2(void); //分隔栏2(-----)
@@ -100,6 +100,8 @@ int main(void)
 				vendor_partation_end = vendor_partation_start + partation_size;
 				userdata_partation_start = vendor_partation_end;
 				confirm_operation();
+				umount_partation();
+				parted_rm_partition2();
 				printf("建立新的System分区...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
 				system_plus(mkpart_command); //建立System分区
@@ -256,6 +258,8 @@ int main(void)
 				vendor_partation_end = vendor_partation_start + partation_size;
 				userdata_partation_start = vendor_partation_end;
 				confirm_operation();
+				umount_partation();
+				parted_rm_partition2();
 				printf("建立新的System分区...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
 				system_plus(mkpart_command); //建立System分区
@@ -269,6 +273,7 @@ int main(void)
 			case 17: //128G 扩容System为5GB、Vendor分区为2GB
 				init();
 				confirm_operation();
+				umount_partation();
 				parted_rm_partition2();
 				printf("建立新的System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 5605 10725");
@@ -281,6 +286,7 @@ int main(void)
 			case 18: //128G 还原原分区表
 				init();
 				confirm_operation();
+				umount_partation();
 				parted_rm_partition2();
 				printf("恢复System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
