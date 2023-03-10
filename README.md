@@ -1,8 +1,13 @@
 # OPPO_R11_Series_Parted_ToolBox
 Welcome to OPPO_R11_Series_Parted_ToolBox
 ## Build
+Use GCC
 ```
 gcc OPPO_R11_Series_Parted_ToolBox.c -o OPPO_R11_Series_Parted_ToolBox.exe
+```
+Use Clang
+```
+clang OPPO_R11_Series_Parted_ToolBox.c -o OPPO_R11_Series_Parted_ToolBox.exe
 ```
 Plase put it in the same directory as [platfome-tools](https://developer.android.google.cn/studio/releases/platform-tools?hl=zh-cn) and parted
 ## Other
