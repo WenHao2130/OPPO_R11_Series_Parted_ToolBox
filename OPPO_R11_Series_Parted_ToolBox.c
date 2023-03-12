@@ -129,6 +129,7 @@ int main(void)
 			case 6: //还原原分区表
 				init();
 				confirm_operation();
+				umount_partation();
 				parted_rm_partition2();
 				printf("恢复System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
