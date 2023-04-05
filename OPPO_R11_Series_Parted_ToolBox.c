@@ -7,20 +7,21 @@ void bar2(void); //分隔栏2(-----)
 void confirm_operation(void); //询问用户是否继续操作
 void safe_flush(FILE *fp); //清除stdin函数(抄的)
 void init(void); //检测设备连接状态并推送parted
-void umount_partation(void); //解除挂载System,Vendor,Data分区
+void umount_partition(void); //解除挂载System,Vendor,Data分区
 void parted_rm_partition1(void); //删除System,Data分区
 void parted_rm_partition2(void); //删除System,Vendor,Data分区
+void clearscreen(void); //替换函数内CLS为clear即可兼容Linux/UNIX
 int menu(void); //菜单
-int enter_system_partation_size(void); //输入System分区大小函数
-int enter_vendor_partation_size(void); //输入Vendor分区大小函数
+int enter_system_partition_size(void); //输入System分区大小函数
+int enter_vendor_partition_size(void); //输入Vendor分区大小函数
 int main(void)
 {
-	const int system_partation_start = 5604;
-	int system_partation_end;
-	int vendor_partation_start;
-	int vendor_partation_end;
-	int userdata_partation_start;
-	int partation_size;
+	const int system_partition_start = 5604;
+	int system_partition_end;
+	int vendor_partition_start;
+	int vendor_partition_end;
+	int userdata_partition_start;
+	int partition_size;
 	char mkpart_command[70];
 	bar1();
     printf("结束系统内原先存在的adb进程...\n");
@@ -29,7 +30,7 @@ int main(void)
     printf("启动adb服务...\n");
     system("adb start-server");
     bar1();
-    system("CLS"); //清屏
+    clearscreen();
 	bar1();
 	printf("                      注意事项                   \n");
 	bar2();
@@ -38,18 +39,16 @@ int main(void)
 	bar1();
 	printf("请按回车键继续");
 	getchar();
-	system("CLS"); //清屏
+	clearscreen();
 	while (1)
 	{
 		switch (menu())
 		{
 			case -3: //返回主菜单
-				system("CLS"); //清屏
 				continue;
 			case -2: //退出程序
 				exit(0);
 			case -1: //去除错误输入
-				system("CLS"); //清屏
 				bar1();
 				printf("\n");
 				printf("\n");
@@ -78,44 +77,44 @@ int main(void)
                 break;
 			case 3: //只扩容System分区 
 				init();
-				partation_size = enter_system_partation_size();
-				system_partation_end = system_partation_start + partation_size;
-				userdata_partation_start = system_partation_end;
+				partition_size = enter_system_partition_size();
+				system_partition_end = system_partition_start + partition_size;
+				userdata_partition_start = system_partition_end;
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition1();
 				printf("建立新的System分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
 				system_plus(mkpart_command); //建立System分区
 				printf("建立新的Userdata分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 62.5g", userdata_partation_start);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 62.5g", userdata_partition_start);
 				system_plus(mkpart_command); //建立Data分区
 				break;
 			case 4: //同时扩容System与Vendor分区
 				init();
-				partation_size = enter_system_partation_size();
-				system_partation_end = system_partation_start + partation_size;
-				vendor_partation_start = system_partation_end;
-				partation_size = enter_vendor_partation_size();
-				vendor_partation_end = vendor_partation_start + partation_size;
-				userdata_partation_start = vendor_partation_end;
+				partition_size = enter_system_partition_size();
+				system_partition_end = system_partition_start + partition_size;
+				vendor_partition_start = system_partition_end;
+				partition_size = enter_vendor_partition_size();
+				vendor_partition_end = vendor_partition_start + partition_size;
+				userdata_partition_start = vendor_partition_end;
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
 				printf("建立新的System分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
 				system_plus(mkpart_command); //建立System分区
 				printf("建立新的Vendor分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partation_start, vendor_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
 				system_plus(mkpart_command); //建立Vendor分区
 				printf("建立新的Userdata分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 62.5g", userdata_partation_start);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 62.5g", userdata_partition_start);
 				system_plus(mkpart_command); //建立Data分区
 				break;
 			case 5: //扩容System为5GB、Vendor分区为2GB
 				init();
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
                 printf("建立新的System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 5605 10725");
@@ -129,7 +128,7 @@ int main(void)
 			case 6: //还原原分区表
 				init();
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
 				printf("恢复System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
@@ -237,44 +236,44 @@ int main(void)
 				break;
 			case 15: //128G 只扩容System分区
 				init();
-				partation_size = enter_system_partation_size();
-				system_partation_end = system_partation_start + partation_size;
-				userdata_partation_start = system_partation_end;
+				partition_size = enter_system_partition_size();
+				system_partition_end = system_partition_start + partition_size;
+				userdata_partition_start = system_partition_end;
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition1();
 				printf("建立新的System分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
 				system_plus(mkpart_command); //建立System分区
 				printf("建立新的Userdata分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 125g", userdata_partation_start);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 125g", userdata_partition_start);
 				system_plus(mkpart_command); //建立Data分区
 				break;
 			case 16: //128G 同时扩容System与Vendor分区
 				init();
-				partation_size = enter_system_partation_size();
-				system_partation_end = system_partation_start + partation_size;
-				vendor_partation_start = system_partation_end;
-				partation_size = enter_vendor_partation_size();
-				vendor_partation_end = vendor_partation_start + partation_size;
-				userdata_partation_start = vendor_partation_end;
+				partition_size = enter_system_partition_size();
+				system_partition_end = system_partition_start + partition_size;
+				vendor_partition_start = system_partition_end;
+				partition_size = enter_vendor_partition_size();
+				vendor_partition_end = vendor_partition_start + partition_size;
+				userdata_partition_start = vendor_partition_end;
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
 				printf("建立新的System分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partation_start, system_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
 				system_plus(mkpart_command); //建立System分区
 				printf("建立新的Vendor分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partation_start, vendor_partation_end);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
 				system_plus(mkpart_command); //建立Vendor分区
 				printf("建立新的Userdata分区...\n");
-				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 125g", userdata_partation_start);
+				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d 125g", userdata_partition_start);
 				system_plus(mkpart_command); //建立Data分区
 				break;
 			case 17: //128G 扩容System为5GB、Vendor分区为2GB
 				init();
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
 				printf("建立新的System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 5605 10725");
@@ -287,7 +286,7 @@ int main(void)
 			case 18: //128G 还原原分区表
 				init();
 				confirm_operation();
-				umount_partation();
+				umount_partition();
 				parted_rm_partition2();
 				printf("恢复System分区...\n");
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
@@ -301,7 +300,7 @@ int main(void)
 		bar1();
 		printf("按回车键返回主菜单");
 		getchar();
-		system("CLS"); //清屏
+		clearscreen();
 	}
 	return 0;
 }
@@ -352,7 +351,6 @@ void safe_flush(FILE *fp)
 }
 void init(void)
 {
-	system("CLS"); //清屏
 	bar1();
     printf("正在检测设备连接状态,如果长时间卡在此处请检查设备及设备驱动程序\n");
     system_plus("adb wait-for-recovery devices");
@@ -364,7 +362,7 @@ void init(void)
     printf("已经把Parted二进制文件赋予755权限啦!\n");
 	bar2();
 }
-void umount_partation(void)
+void umount_partition(void)
 {
 	printf("解除挂载...\n");
     system_plus("adb shell twrp umount system");
@@ -389,6 +387,10 @@ void parted_rm_partition2(void)
     printf("删除Userdata分区...\n");
     system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
 	bar2();
+}
+void clearscreen(void)
+{
+	system("CLS");
 }
 int menu(void)
 {
@@ -416,10 +418,11 @@ int menu(void)
         if (scanf("%d", &choose1) == 1)
         {
 			safe_flush(stdin); //清除stdin
-			system("CLS"); //清屏
+			clearscreen();
 			switch (choose1) //二级菜单
 			{
 				case 0:
+					clearscreen();
 					return -2; //返回值-2,由主函数退出程序
 				case 1:
 					bar1();
@@ -445,16 +448,21 @@ int menu(void)
 						switch(choose2)
 						{
 							case 0:
+								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 1:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 2:
+								clearscreen();
 								return choose2; //主函数对应功能
 							default:
+								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
 					}
 					else
+						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 2:
 					bar1();
@@ -480,22 +488,30 @@ int menu(void)
 						switch(choose2)
 						{
 							case 0:
+								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 3:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 4:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 5:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 6:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 7:
+								clearscreen();
 								return choose2; //主函数对应功能
 							default:
+								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
 					}
 					else
+						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 3:
 					bar1();
@@ -521,26 +537,36 @@ int menu(void)
 						switch(choose2)
 						{
 							case 0:
+								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 8:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 9:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 10:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 11:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 12:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 13:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 14:
+								clearscreen();
 								return choose2; //主函数对应功能
 							default:
+								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
 					}
 					else
+						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 4:
 					bar1();
@@ -566,44 +592,52 @@ int menu(void)
 						switch(choose2)
 						{
 							case 0:
+								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 15:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 16:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 17:
+								clearscreen();
 								return choose2; //主函数对应功能
 							case 18:
+								clearscreen();
 								return choose2; //主函数对应功能
 							default:
+								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
 					}
 					else
+						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				default:
+					clearscreen();
 					return -1; //返回值-1，由主函数去除错误输入
 			}
         }
         else
         {
 			safe_flush(stdin); //清除stdin
-            system("CLS"); //清屏
+            clearscreen();
             return -1; //返回值-1，由主函数去除错误输入
         }
     }
 }
-int enter_system_partation_size(void)
+int enter_system_partition_size(void)
 {
-	int partation_size;
+	int partition_size;
 	while (1)
     {
         printf("请输入您要扩容的System分区大小(单位为MB,范围为3320~10240):"); //限定范围，防止误操作
-        if (scanf("%d", &partation_size) == 1)
+        if (scanf("%d", &partition_size) == 1)
 		{
         	safe_flush(stdin); //清除stdin
-        	if (partation_size <= 10240 && partation_size >= 3320)
-            	return partation_size;
+        	if (partition_size <= 10240 && partition_size >= 3320)
+            	return partition_size;
         	else
         	{
             	printf("您输入的数据过大或过小,出于保护,请您重新输入System分区大小\n");
@@ -618,17 +652,17 @@ int enter_system_partation_size(void)
 		}
     }
 }
-int enter_vendor_partation_size(void)
+int enter_vendor_partition_size(void)
 {
-	int partation_size;
+	int partition_size;
 	while (1)
     {
         printf("请输入您要扩容的Vendor分区大小(单位为MB,范围为1024~3072):"); //限定范围，防止误操作
-        if (scanf("%d", &partation_size) == 1)
+        if (scanf("%d", &partition_size) == 1)
 		{
         	safe_flush(stdin); //清除stdin
-        	if (partation_size <= 3072 && partation_size >= 1024)
-            	return partation_size;
+        	if (partition_size <= 3072 && partition_size >= 1024)
+            	return partition_size;
         	else
         	{
             	printf("您输入的数据过大或过小,出于保护,请您重新输入Vendor分区大小\n");
