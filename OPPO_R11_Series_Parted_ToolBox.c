@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define VERSION "2.1"
+#define VERSION "2.2"
 void system_plus(const char *command); //基于system函数,但是加了命令是否执行成功判断
 void bar1(void); //分隔栏1(=====)
 void bar2(void); //分隔栏2(-----)
@@ -11,6 +11,9 @@ void umount_partition(void); //解除挂载System,Vendor,Data分区
 void parted_rm_partition1(void); //删除System,Data分区
 void parted_rm_partition2(void); //删除System,Vendor,Data分区
 void clearscreen(void); //替换函数内CLS为clear即可兼容Linux/UNIX
+void checkfile(char *filename); //检查文件是否存在
+void check_platfrom_and_parted_windows(); //适用于Windows的启动程序检查Platfrom-Tool和Parted是否存在
+void check_platfrom_and_parted_linux(); //适用于Linux的启动程序检查Platfrom-Tool和Parted是否存在
 int menu(void); //菜单
 int enter_system_partition_size(void); //输入System分区大小函数
 int enter_vendor_partition_size(void); //输入Vendor分区大小函数
@@ -23,6 +26,8 @@ int main(void)
 	int userdata_partition_start;
 	int partition_size;
 	char mkpart_command[70];
+	check_platfrom_and_parted_windows(); //如果需要在Linux/UNIX下运行此程序,请注释此行,并将下一行取消注释
+	//check_platfrom_and_parted_linux();
 	bar1();
     printf("结束系统内原先存在的adb进程...\n");
     system("taskkill /f /im adb.exe"); //结束adb进程,防止干扰下一步程序运行
@@ -309,13 +314,31 @@ void system_plus(const char *command)
     char choose;
     if (system(command) != 0)
     {
-        printf("命令可能执行失败,您可以继续操作,但造成的后果作者不予承担\n");
-        printf("是否继续操作(y/N)");
-        if (scanf("%c", &choose) == 1)
+		printf("检测到命令可能执行失败,是否重试(y/N)");
+		if (scanf("%c", &choose) == 1)
         {
             safe_flush(stdin);
             if (choose == 'y' || choose == 'Y')
-                return;
+			{
+				for (int i = 1; i <= 3; i++)
+				{
+					printf("正在重试...(第%d次/共3次)\n", i);
+					if (system(command) == 0)
+						return;
+				}
+       			 printf("命令多次执行失败,您可以继续操作,但造成的后果作者不予承担\n");
+        		printf("是否继续操作(y/N)");
+        		if (scanf("%c", &choose) == 1)
+        		{
+            		safe_flush(stdin);
+            		if (choose == 'y' || choose == 'Y')
+                		return;
+            		else
+                		exit(0);
+       			 }
+        		else
+            		exit(0);
+			}
             else
                 exit(0);
         }
@@ -338,7 +361,7 @@ void confirm_operation(void)
 	char choose;
 	printf("此操作可能会导致你的手机变砖,确认要继续操作吗?(y/N)");
     scanf("%c", &choose);
-    safe_flush(stdin); //清除scanf缓存
+    safe_flush(stdin); //清除stdin缓存
     if (choose == 'Y' || choose == 'y') //判断用户的输入是否合法
         return;
     else
@@ -391,6 +414,39 @@ void parted_rm_partition2(void)
 void clearscreen(void)
 {
 	system("CLS");
+}
+void checkfile(char *filename)
+{
+	FILE *fp;
+	fp = fopen(filename, "r");
+	if (fp != NULL)
+	{
+		fclose(fp);
+		return;
+	}
+	else
+	{
+		printf("文件\"%s\"不存在,请检查程序所在目录\n", filename);
+		printf("按回车键退出程序");
+		getchar();
+		exit(0);
+	}
+}
+void check_platfrom_and_parted_windows()
+{
+	checkfile("parted");
+	//要正常使用adb命令必须存在以下几个文件
+	checkfile("adb.exe");
+	checkfile("AdbWinApi.dll");
+	checkfile("AdbWinUsbApi.dll");
+	checkfile("fastboot.exe");
+}
+void check_platfrom_and_parted_linux()
+{
+	checkfile("parted");
+	//要正常使用adb命令必须存在以下几个文件
+	checkfile("adb");
+	checkfile("fastboot");
 }
 int menu(void)
 {
