@@ -451,8 +451,6 @@ int menu(void)
 								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 1:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 2:
 								clearscreen();
 								return choose2; //主函数对应功能
@@ -491,17 +489,9 @@ int menu(void)
 								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 3:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 4:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 5:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 6:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 7:
 								clearscreen();
 								return choose2; //主函数对应功能
@@ -540,23 +530,11 @@ int menu(void)
 								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 8:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 9:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 10:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 11:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 12:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 13:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 14:
 								clearscreen();
 								return choose2; //主函数对应功能
@@ -595,14 +573,8 @@ int menu(void)
 								clearscreen();
 								return -3; //由主函数返回主菜单
 							case 15:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 16:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 17:
-								clearscreen();
-								return choose2; //主函数对应功能
 							case 18:
 								clearscreen();
 								return choose2; //主函数对应功能
