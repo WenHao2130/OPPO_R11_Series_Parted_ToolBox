@@ -12,8 +12,8 @@ void parted_rm_partition1(void); //删除System,Data分区
 void parted_rm_partition2(void); //删除System,Vendor,Data分区
 void clearscreen(void); //替换函数内CLS为clear即可兼容Linux/UNIX
 void checkfile(char *filename); //检查文件是否存在
-void check_platfrom_and_parted_windows(); //适用于Windows的启动程序检查Platfrom-Tool和Parted是否存在
-void check_platfrom_and_parted_linux(); //适用于Linux的启动程序检查Platfrom-Tool和Parted是否存在
+void check_platfrom_and_parted_windows(void); //适用于Windows的启动程序检查Platfrom-Tool和Parted是否存在
+void check_platfrom_and_parted_linux(void); //适用于Linux的启动程序检查Platfrom-Tool和Parted是否存在
 int menu(void); //菜单
 int enter_system_partition_size(void); //输入System分区大小函数
 int enter_vendor_partition_size(void); //输入Vendor分区大小函数
