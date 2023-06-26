@@ -301,6 +301,56 @@ int main(void)
                 system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 5604 125g");
 				printf("恢复完成\n");
 				break;
+			case 19: //移除谷歌锁
+				bar1();
+				printf("正在检测设备连接状态，如果长时间卡在此处请检查设备及设备驱动程序\n");
+                system_plus("adb wait-for-recovery devices");
+                printf("设备已连接!   状态:Recovery\n");
+				printf("开始擦除frp分区...\n");
+				system_plus("adb shell dd if=/dev/zero of=/dev/block/by-name/frp bs=1k count=512");
+				printf("开始格式化Data分区...\n");
+				system_plus("adb shell twrp format data");
+				printf("移除谷歌锁完成\n");
+				break;
+			case 20: //移除锁屏密码
+				bar1();
+				printf("正在检测设备连接状态，如果长时间卡在此处请检查设备及设备驱动程序\n");
+                system_plus("adb wait-for-recovery devices");
+                printf("设备已连接!   状态:Recovery\n");
+				printf("挂载Data分区...\n");
+				system_plus("adb shell twrp mount data");
+				printf("移除锁屏密码文件...\n");
+				system_plus("adb shell rm -f /data/system/locksettings.db");
+				printf("移除锁屏密码完成\n");
+				break;
+			case 21: //备份基带
+				bar1();
+				printf("正在检测设备连接状态，如果长时间卡在此处请检查设备及设备驱动程序\n");
+                system_plus("adb wait-for-recovery devices");
+                printf("设备已连接!   状态:Recovery\n");
+				printf("开始备份...\n");
+				system_plus("adb pull /dev/block/mmcblk0p3 efs1.img");
+				system_plus("adb pull /dev/block/mmcblk0p4 efs2.img");
+				system_plus("adb pull /dev/block/mmcblk0p20 fsg.img");
+				system_plus("adb pull /dev/block/mmcblk0p51 fsc.img");
+				printf("备份完成\n");
+				break;
+			case 22: //恢复基带
+				checkfile("efs1.img");
+				checkfile("efs2.img");
+				checkfile("fsg.img");
+				checkfile("fsc.img");
+				bar1();
+				printf("正在检测设备连接状态，如果长时间卡在此处请检查设备及设备驱动程序\n");
+                system_plus("adb wait-for-recovery devices");
+                printf("设备已连接!   状态:Recovery\n");
+				printf("开始恢复...\n");
+				system_plus("adb pull efs1.img /dev/block/mmcblk0p3");
+				system_plus("adb pull efs2.img /dev/block/mmcblk0p4");
+				system_plus("adb pull fsg.img /dev/block/mmcblk0p20");
+				system_plus("adb pull fsc.img /dev/block/mmcblk0p51");
+				printf("恢复完成\n");
+				break;
 		}
 		bar1();
 		printf("按回车键返回主菜单");
@@ -326,7 +376,7 @@ void system_plus(const char *command)
 					if (system(command) == 0)
 						return;
 				}
-       			 printf("命令多次执行失败,您可以继续操作,但造成的后果作者不予承担\n");
+       			printf("命令多次执行失败,您可以继续操作,但造成的后果作者不予承担\n");
         		printf("是否继续操作(y/N)");
         		if (scanf("%c", &choose) == 1)
         		{
@@ -464,6 +514,7 @@ int menu(void)
 	printf("- 02.扩容功能区\n");
 	printf("- 03.清除功能区\n");
 	printf("- 04.128GB主板专区\n");
+	printf("- 05.实用功能区\n");
 	printf("\n");
 	bar2();
 	printf("- 0.退出                           版本:%s\n", VERSION);
@@ -486,8 +537,9 @@ int menu(void)
 					bar2();
 					printf("                ==重启功能区==              \n");
 					printf("\n");
-					printf("- 01.Fastboot重启到Recovery              \n");
-					printf("- 02.开机状态重启到Recovery                \n");
+					printf("- 01.Fastboot重启到Recovery\n");
+					printf("- 02.开机状态重启到Recovery\n");
+					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
@@ -495,7 +547,7 @@ int menu(void)
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.返回主菜单                                   \n");
+					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
 					if (scanf("%d", &choose2) == 1)
@@ -524,16 +576,17 @@ int menu(void)
 					bar2();
 					printf("                ==扩容功能区==              \n");
 					printf("\n");
-					printf("- 03.只扩容System分区                     \n");
-					printf("- 04.同时扩容System与Vendor分区           \n");
-					printf("- 05.扩容System为5GB、Vendor分区为2GB     \n");
-					printf("- 06.还原原分区表                         \n");
-					printf("- 07.获取手机当前分区表数据               \n");
+					printf("- 03.只扩容System分区\n");
+					printf("- 04.同时扩容System与Vendor分区\n");
+					printf("- 05.扩容System为5GB、Vendor分区为2GB\n");
+					printf("- 06.还原原分区表\n");
+					printf("- 07.获取手机当前分区表数据\n");
+					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.返回主菜单                                   \n");
+					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
 					if (scanf("%d", &choose2) == 1)
@@ -566,15 +619,16 @@ int menu(void)
 					printf("                ==清除功能区==              \n");
 					printf("\n");
 					printf("- 08.TWRP自带格式化System分区(需要TWRP支持)\n");
-					printf("- 09.格式化System分区                    \n");
+					printf("- 09.格式化System分区\n");
 					printf("- 10.TWRP自带格式化Vendor分区(需要TWRP支持)\n");
-					printf("- 11.格式化Vendor分区                    \n");
-					printf("- 12.通用格式化Data分区(需要TWRP支持)       \n");
-					printf("- 13.格式化Data分区_R11                  \n");
-					printf("- 14.格式化Data分区_R11s                \n");
+					printf("- 11.格式化Vendor分区\n");
+					printf("- 12.通用格式化Data分区(需要TWRP支持)\n");
+					printf("- 13.格式化Data分区_R11\n");
+					printf("- 14.格式化Data分区_R11s\n");
+					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.返回主菜单                                   \n");
+					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
 					if (scanf("%d", &choose2) == 1)
@@ -608,16 +662,17 @@ int menu(void)
 					bar2();
 					printf("               ==128GB主板专区==              \n");
 					printf("\n");
-					printf("- 15.只扩容System分区                     \n");
-					printf("- 16.同时扩容System与Vendor分区           \n");
-					printf("- 17.扩容System为5GB、Vendor分区为2GB     \n");
-					printf("- 18.还原原分区表                         \n");
+					printf("- 15.只扩容System分区\n");
+					printf("- 16.同时扩容System与Vendor分区\n");
+					printf("- 17.扩容System为5GB、Vendor分区为2GB\n");
+					printf("- 18.还原原分区表\n");
+					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.返回主菜单                                   \n");
+					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
 					if (scanf("%d", &choose2) == 1)
@@ -632,6 +687,47 @@ int menu(void)
 							case 16:
 							case 17:
 							case 18:
+								clearscreen();
+								return choose2; //主函数对应功能
+							default:
+								clearscreen();
+								return -1; //返回值-1，由主函数去除错误输入
+						}
+					}
+					else
+						clearscreen();
+						return -1; //返回值-1，由主函数去除错误输入
+				case 5:
+					bar1();
+					printf(" <                                               \n");
+					bar2();
+					printf("                ==实用功能区==                 \n");
+					printf("\n");
+					printf("- 19.移除谷歌锁\n");
+					printf("- 20.移除锁屏密码\n");
+					printf("- 21.备份基带\n");
+					printf("- 22.恢复基带\n");
+					printf("\n");
+					printf("\n");
+					printf("\n");
+					printf("\n");
+					printf("\n");
+					bar2();
+					printf("- 0.返回主菜单\n");
+					bar1();
+					printf("请输入你想要使用的功能序号:");
+					if (scanf("%d", &choose2) == 1)
+					{
+						safe_flush(stdin); //清除stdin
+						switch(choose2)
+						{
+							case 0:
+								clearscreen();
+								return -3; //由主函数返回主菜单
+							case 19:
+							case 20:
+							case 21:
+							case 22:
 								clearscreen();
 								return choose2; //主函数对应功能
 							default:
