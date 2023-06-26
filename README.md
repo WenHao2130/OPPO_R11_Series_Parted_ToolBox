@@ -1,5 +1,5 @@
 # OPPO_R11_Series_Parted_ToolBox
-这是一个适用于OPPO R11系列的Parted扩容工具箱
+This is a Parted expansion kit for the OPPO R11 Series
 ### Program Main Menu
 ```
 =================================================
