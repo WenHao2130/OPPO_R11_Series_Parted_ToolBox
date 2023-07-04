@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define VERSION "2.2"
+#define VERSION "2.3"
 void system_plus(const char *command); //基于system函数,但是加了命令是否执行成功判断
 void bar1(void); //分隔栏1(=====)
 void bar2(void); //分隔栏2(-----)
