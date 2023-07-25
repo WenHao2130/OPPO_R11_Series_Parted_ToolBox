@@ -30,7 +30,7 @@ Use Clang
 ```
 clang OPPO_R11_Series_Parted_ToolBox.c -o OPPO_R11_Series_Parted_ToolBox.exe
 ```
-Plase put it in the same directory as [**platfome-tools**](https://developer.android.google.cn/studio/releases/platform-tools?hl=zh-cn) and **parted**(arm-v7a/arm-v8a)
+Plase put it in the same directory as [**platfrom-tools**](https://developer.android.google.cn/studio/releases/platform-tools?hl=zh-cn) and **parted**(arm-v7a/arm-v8a)
 ## Other
 64GB EMMC PartitionTreble
 ```
