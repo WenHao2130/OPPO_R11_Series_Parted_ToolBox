@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #define VERSION "2.5"
+
 void system_plus(const char *command); //基于system函数,但是加了命令是否执行成功判断
 void bar1(void); //分隔栏1(=====)
 void bar2(void); //分隔栏2(-----)
@@ -15,10 +17,12 @@ void clearscreen(void); //替换函数内CLS为clear即可兼容Linux/UNIX
 void checkfile(char *filename); //检查文件是否存在
 void check_platfrom_and_parted_windows(void); //适用于Windows的启动程序检查Platfrom-Tool和Parted是否存在
 void check_platfrom_and_parted_linux(void); //适用于Linux的启动程序检查Platfrom-Tool和Parted是否存在
+
 int menu(void); //菜单
 int enter_system_partition_size(void); //输入System分区大小函数
 int enter_vendor_partition_size(void); //输入Vendor分区大小函数
-int main(void){
+
+int main(void) {
 	const int system_partition_start = 5604;
 	int system_partition_end;
 	int system_bak_partition_start;
@@ -57,8 +61,8 @@ int main(void){
 	getchar();
 	clearscreen();
 
-	while (1){
-		switch (menu()){
+	while (1) {
+		switch (menu()) {
 			case -3: //返回主菜单
 				continue;
 			case -2: //退出程序
@@ -493,47 +497,43 @@ int main(void){
 	}
 	return 0;
 }
-void system_plus(const char *command){
+void system_plus(const char *command) {
 	char choose;
 
-	if (system(command) != 0){
+	if (system(command) != 0) {
 		printf("检测到命令可能执行失败,是否重试(y/N)");
-		if (scanf("%c", &choose) == 1){
+		if (scanf("%c", &choose) == 1) {
 			safe_flush(stdin);
-			if (choose == 'y' || choose == 'Y'){
-				for (int i = 1; i <= 3; i++){
+			if (choose == 'y' || choose == 'Y') {
+				for (int i = 1; i <= 3; i++) {
 					printf("正在重试...(第%d次/共3次)\n", i);
 					if (system(command) == 0)
 						return;
 				}
 	   			printf("命令多次执行失败,您可以继续操作,但造成的后果作者不予承担\n");
 				printf("是否继续操作(y/N)");
-				if (scanf("%c", &choose) == 1){
+				if (scanf("%c", &choose) == 1) {
 					safe_flush(stdin);
 					if (choose == 'y' || choose == 'Y')
 						return;
 					else
 						exit(0);
-	   			}
-				else
+	   			} else
 					exit(0);
-			}
-			else
+			} else
 				exit(0);
-		}
-		else
+		} else
 			exit(0);
-	}
-	else
+	} else
 		return;
 }
-void bar1(void){
+void bar1(void) {
 	printf("=================================================\n");
 }
-void bar2(void){
+void bar2(void) {
 	printf("-------------------------------------------------\n");
 }
-void confirm_operation(void){
+void confirm_operation(void) {
 	char choose;
 
 	printf("此操作可能会导致你的手机变砖,确认要继续操作吗?(y/N)");
@@ -544,12 +544,12 @@ void confirm_operation(void){
 	else
 		exit(0);
 }
-void safe_flush(FILE *fp){
+void safe_flush(FILE *fp) {
 	int ch;
 
 	while( (ch = fgetc(fp)) != EOF && ch != '\n' );
 }
-void init(void){
+void init(void) {
 	bar1();
 	printf("正在检测设备连接状态,如果长时间卡在此处请检查设备及设备驱动程序\n");
 	system_plus("adb wait-for-recovery devices");
@@ -561,21 +561,21 @@ void init(void){
 	printf("已经把Parted二进制文件赋予755权限啦!\n");
 	bar2();
 }
-void umount_partition(void){
+void umount_partition(void) {
 	printf("解除挂载...\n");
 	system_plus("adb shell twrp umount system");
 	system_plus("adb shell twrp umount vendor");
 	system_plus("adb shell twrp umount data");
 	bar2();
 }
-void parted_rm_partition1(void){
+void parted_rm_partition1(void) {
 	printf("删除System分区...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
 	printf("删除Userdata分区...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
 	bar2();
 }
-void parted_rm_partition2(void){
+void parted_rm_partition2(void) {
 	printf("删除System分区...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
 	printf("删除Vendor分区...\n");
@@ -584,7 +584,7 @@ void parted_rm_partition2(void){
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
 	bar2();
 }
-void parted_rm_partition3(void){
+void parted_rm_partition3(void) {
 	printf("删除System分区...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
 	printf("删除System_bak分区...\n");
@@ -597,30 +597,29 @@ void parted_rm_partition3(void){
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 71");
 	bar2();
 }
-void clearscreen(void){
+void clearscreen(void) {
 #ifdef _WIN32
 	system("CLS");
 #else
 	system("clear");
 #endif
 }
-void checkfile(char *filename){
+void checkfile(char *filename) {
 	FILE *fp;
 
 	fp = fopen(filename, "r");
 
-	if (fp != NULL){
+	if (fp != NULL) {
 		fclose(fp);
 		return;
-	}
-	else{
+	} else {
 		printf("文件\"%s\"不存在,请检查程序所在目录\n", filename);
 		printf("按回车键退出程序");
 		getchar();
 		exit(0);
 	}
 }
-void check_platfrom_and_parted_windows(){
+void check_platfrom_and_parted_windows() {
 	checkfile("parted");
 	//要正常使用adb命令必须存在以下几个文件
 	checkfile("adb.exe");
@@ -628,13 +627,13 @@ void check_platfrom_and_parted_windows(){
 	checkfile("AdbWinUsbApi.dll");
 	checkfile("fastboot.exe");
 }
-void check_platfrom_and_parted_linux(){
+void check_platfrom_and_parted_linux() {
 	checkfile("parted");
 	//要正常使用adb命令必须存在以下几个文件
 	checkfile("adb");
 	checkfile("fastboot");
 }
-int menu(void){
+int menu(void) {
 	int choose1;
 	int choose2;
 
@@ -656,13 +655,13 @@ int menu(void){
 	bar2();
 	printf("- 0.退出                           版本:%s\n", VERSION);
 	bar1();
-	 while (1){
+	 while (1) {
 		printf("请输入你想要使用的功能序号:");
-		if (scanf("%d", &choose1) == 1){
+		if (scanf("%d", &choose1) == 1) {
 			safe_flush(stdin); //清除stdin
 
 			clearscreen();
-			switch (choose1){ //二级菜单
+			switch (choose1) { //二级菜单
 				case 0:
 					clearscreen();
 					return -2; //返回值-2,由主函数退出程序
@@ -686,10 +685,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -701,8 +700,7 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 2:
@@ -725,10 +723,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -743,8 +741,7 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 3:
@@ -767,10 +764,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -787,8 +784,7 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 4:
@@ -811,10 +807,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -828,8 +824,7 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 5:
@@ -852,10 +847,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -869,8 +864,7 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				case 6:
@@ -893,10 +887,10 @@ int menu(void){
 					printf("- 0.返回主菜单\n");
 					bar1();
 					printf("请输入你想要使用的功能序号:");
-					if (scanf("%d", &choose2) == 1){
+					if (scanf("%d", &choose2) == 1) {
 						safe_flush(stdin); //清除stdin
 
-						switch(choose2){
+						switch(choose2) {
 							case 0:
 								clearscreen();
 								return -3; //由主函数返回主菜单
@@ -912,56 +906,52 @@ int menu(void){
 								clearscreen();
 								return -1; //返回值-1，由主函数去除错误输入
 						}
-					}
-					else
+					} else
 						clearscreen();
 						return -1; //返回值-1，由主函数去除错误输入
 				default:
 					clearscreen();
 					return -1; //返回值-1，由主函数去除错误输入
 			}
-		}
-		else{
+		} else {
 			safe_flush(stdin); //清除stdin
 			clearscreen();
 			return -1; //返回值-1，由主函数去除错误输入
 		}
 	}
 }
-int enter_system_partition_size(void){
+int enter_system_partition_size(void) {
 	int partition_size;
-	while (1){
+	while (1) {
 		printf("请输入您要扩容的System分区大小(单位为MB,范围为3481~10240):"); //限定范围，防止误操作
-		if (scanf("%d", &partition_size) == 1){
+		if (scanf("%d", &partition_size) == 1) {
 			safe_flush(stdin); //清除stdin
 			if (partition_size <= 10240 && partition_size >= 3481)
 				return partition_size;
-			else{
+			else {
 				printf("您输入的数据过大或过小,出于保护,请您重新输入System分区大小\n");
 				continue;
 			}
-		}
-		else{
+		} else {
 			safe_flush(stdin); //清除stdin
 			printf("您输入的数据有误,请重新输入\n");
 			continue;
 		}
 	}
 }
-int enter_vendor_partition_size(void){
+int enter_vendor_partition_size(void) {
 	int partition_size;
-	while (1){
+	while (1) {
 		printf("请输入您要扩容的Vendor分区大小(单位为MB,范围为1074~3072):"); //限定范围，防止误操作
-		if (scanf("%d", &partition_size) == 1){
+		if (scanf("%d", &partition_size) == 1) {
 			safe_flush(stdin); //清除stdin
 			if (partition_size <= 3072 && partition_size >= 1074)
 				return partition_size;
-			else{
-			printf("您输入的数据过大或过小,出于保护,请您重新输入Vendor分区大小\n");
-			continue;
+			else {
+				printf("您输入的数据过大或过小,出于保护,请您重新输入Vendor分区大小\n");
+				continue;
 			}
-		}
-		else{
+		} else {
 			safe_flush(stdin); //清除stdin
 			printf("您输入的数据有误,请重新输入\n");
 			continue;
