@@ -66,7 +66,7 @@ int main(void) {
 			case -3: //返回主菜单
 				continue;
 			case -2: //退出程序
-				exit(0);
+				return 0;
 			case -1: //去除错误输入
 				bar1();
 				printf("\n");
