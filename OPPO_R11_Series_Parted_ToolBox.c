@@ -32,8 +32,11 @@ int main(void){
 	int partition_size;
 	char mkpart_command[70];
 
-	check_platfrom_and_parted_windows(); //如果需要在Linux/UNIX下运行此程序,请注释此行,并将下一行取消注释
-	//check_platfrom_and_parted_linux();
+#ifdef _WIN32
+	check_platfrom_and_parted_windows();
+#else
+	check_platfrom_and_parted_linux();
+#endif
 
 	bar1();
 	printf("结束系统内原先存在的adb进程...\n");
@@ -595,7 +598,11 @@ void parted_rm_partition3(void){
 	bar2();
 }
 void clearscreen(void){
+#ifdef _WIN32
 	system("CLS");
+#else
+	system("clear");
+#endif
 }
 void checkfile(char *filename){
 	FILE *fp;
