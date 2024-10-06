@@ -258,7 +258,7 @@ int main(void) {
 				printf("格式化Data分区完成\n");
 				break;
 			case 15: //128G 只扩容System分区
-				userdata_partition_end = 12500;
+				userdata_partition_end = 125000;
 
 				init();
 				partition_size = enter_system_partition_size();
@@ -275,7 +275,7 @@ int main(void) {
 				system_plus(mkpart_command); //建立Data分区
 				break;
 			case 16: //128G 同时扩容System与Vendor分区
-				userdata_partition_end = 12500;
+				userdata_partition_end = 125000;
 
 				init();
 				partition_size = enter_system_partition_size();
