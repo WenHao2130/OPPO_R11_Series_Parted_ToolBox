@@ -52,10 +52,10 @@ int main(void) {
 	clearscreen();
 
 	bar1();
-	printf("                      注意事项                   \n");
+	printf("                      注意事项                  \n");
 	bar2();
-	printf("1.在使用本工具前请确保您的TWRP版本为3.6.x/3.7.x  \n");
-	printf("2.请确保您的手机未使用过扩容包进行扩容           \n");
+	printf("1.在使用本工具前请确保您的 TWRP 版本大于等于 3.6.x  \n");
+	printf("2.请确保您的手机未使用过扩容包进行扩容              \n");
 	bar1();
 	printf("请按回车键继续");
 	getchar();
