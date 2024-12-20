@@ -3,24 +3,24 @@
 
 #define VERSION "2.5"
 
-void system_plus(const char *command); //åŸºäºsystemå‡½æ•°,ä½†æ˜¯åŠ äº†å‘½ä»¤æ˜¯å¦æ‰§è¡ŒæˆåŠŸåˆ¤æ–­
-void bar1(void); //åˆ†éš”æ 1(=====)
-void bar2(void); //åˆ†éš”æ 2(-----)
-void confirm_operation(void); //è¯¢é—®ç”¨æˆ·æ˜¯å¦ç»§ç»­æ“ä½œ
-void safe_flush(FILE *fp); //æ¸…é™¤stdinå‡½æ•°(æŠ„çš„)
-void init(void); //æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€å¹¶æ¨é€parted
-void umount_partition(void); //è§£é™¤æŒ‚è½½System,Vendor,Userdataåˆ†åŒº
-void parted_rm_partition1(void); //åˆ é™¤System,Userdataåˆ†åŒº
-void parted_rm_partition2(void); //åˆ é™¤System,Vendor,Userdataåˆ†åŒº
-void parted_rm_partition3(void); //åˆ é™¤System,System_bak,Vendor,Userdata,Userdata_bakåˆ†åŒº
-void clearscreen(void); //æ›¿æ¢å‡½æ•°å†…CLSä¸ºclearå³å¯å…¼å®¹Linux/UNIX
-void checkfile(char *filename); //æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
-void check_platfrom_and_parted_windows(void); //é€‚ç”¨äºWindowsçš„å¯åŠ¨ç¨‹åºæ£€æŸ¥Platfrom-Toolå’ŒPartedæ˜¯å¦å­˜åœ¨
-void check_platfrom_and_parted_linux(void); //é€‚ç”¨äºLinuxçš„å¯åŠ¨ç¨‹åºæ£€æŸ¥Platfrom-Toolå’ŒPartedæ˜¯å¦å­˜åœ¨
+void system_plus(const char *command); //»ùÓÚsystemº¯Êı,µ«ÊÇ¼ÓÁËÃüÁîÊÇ·ñÖ´ĞĞ³É¹¦ÅĞ¶Ï
+void bar1(void); //·Ö¸ôÀ¸1(=====)
+void bar2(void); //·Ö¸ôÀ¸2(-----)
+void confirm_operation(void); //Ñ¯ÎÊÓÃ»§ÊÇ·ñ¼ÌĞø²Ù×÷
+void safe_flush(FILE *fp); //Çå³ıstdinº¯Êı(³­µÄ)
+void init(void); //¼ì²âÉè±¸Á¬½Ó×´Ì¬²¢ÍÆËÍparted
+void umount_partition(void); //½â³ı¹ÒÔØSystem,Vendor,Userdata·ÖÇø
+void parted_rm_partition1(void); //É¾³ıSystem,Userdata·ÖÇø
+void parted_rm_partition2(void); //É¾³ıSystem,Vendor,Userdata·ÖÇø
+void parted_rm_partition3(void); //É¾³ıSystem,System_bak,Vendor,Userdata,Userdata_bak·ÖÇø
+void clearscreen(void); //Ìæ»»º¯ÊıÄÚCLSÎªclear¼´¿É¼æÈİLinux/UNIX
+void checkfile(char *filename); //¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ
+void check_platfrom_and_parted_windows(void); //ÊÊÓÃÓÚWindowsµÄÆô¶¯³ÌĞò¼ì²éPlatfrom-ToolºÍPartedÊÇ·ñ´æÔÚ
+void check_platfrom_and_parted_linux(void); //ÊÊÓÃÓÚLinuxµÄÆô¶¯³ÌĞò¼ì²éPlatfrom-ToolºÍPartedÊÇ·ñ´æÔÚ
 
-int menu(void); //èœå•
-int enter_system_partition_size(void); //è¾“å…¥Systemåˆ†åŒºå¤§å°å‡½æ•°
-int enter_vendor_partition_size(void); //è¾“å…¥Vendoråˆ†åŒºå¤§å°å‡½æ•°
+int menu(void); //²Ëµ¥
+int enter_system_partition_size(void); //ÊäÈëSystem·ÖÇø´óĞ¡º¯Êı
+int enter_vendor_partition_size(void); //ÊäÈëVendor·ÖÇø´óĞ¡º¯Êı
 
 int main(void) {
 	const int system_partition_start = 5604;
@@ -43,58 +43,58 @@ int main(void) {
 #endif
 
 	bar1();
-	printf("ç»“æŸç³»ç»Ÿå†…åŸå…ˆå­˜åœ¨çš„adbè¿›ç¨‹...\n");
-	system("taskkill /f /im adb.exe"); //ç»“æŸadbè¿›ç¨‹,é˜²æ­¢å¹²æ‰°ä¸‹ä¸€æ­¥ç¨‹åºè¿è¡Œ
+	printf("½áÊøÏµÍ³ÄÚÔ­ÏÈ´æÔÚµÄadb½ø³Ì...\n");
+	system("taskkill /f /im adb.exe"); //½áÊøadb½ø³Ì,·ÀÖ¹¸ÉÈÅÏÂÒ»²½³ÌĞòÔËĞĞ
 	bar1();
-	printf("å¯åŠ¨adbæœåŠ¡...\n");
+	printf("Æô¶¯adb·şÎñ...\n");
 	system("adb start-server");
 	bar1();
 	clearscreen();
 
 	bar1();
-	printf("                      æ³¨æ„äº‹é¡¹                   \n");
+	printf("                      ×¢ÒâÊÂÏî                   \n");
 	bar2();
-	printf("1.åœ¨ä½¿ç”¨æœ¬å·¥å…·å‰è¯·ç¡®ä¿æ‚¨çš„TWRPç‰ˆæœ¬ä¸º3.6.x/3.7.x  \n");
-	printf("2.è¯·ç¡®ä¿æ‚¨çš„æ‰‹æœºæœªä½¿ç”¨è¿‡æ‰©å®¹åŒ…è¿›è¡Œæ‰©å®¹           \n");
+	printf("1.ÔÚÊ¹ÓÃ±¾¹¤¾ßÇ°ÇëÈ·±£ÄúµÄTWRP°æ±¾Îª3.6.x/3.7.x  \n");
+	printf("2.ÇëÈ·±£ÄúµÄÊÖ»úÎ´Ê¹ÓÃ¹ıÀ©Èİ°ü½øĞĞÀ©Èİ           \n");
 	bar1();
-	printf("è¯·æŒ‰å›è½¦é”®ç»§ç»­");
+	printf("Çë°´»Ø³µ¼ü¼ÌĞø");
 	getchar();
 	clearscreen();
 
 	while (1) {
 		switch (menu()) {
-			case -3: //è¿”å›ä¸»èœå•
+			case -3: //·µ»ØÖ÷²Ëµ¥
 				continue;
-			case -2: //é€€å‡ºç¨‹åº
+			case -2: //ÍË³ö³ÌĞò
 				return 0;
-			case -1: //å»é™¤é”™è¯¯è¾“å…¥
+			case -1: //È¥³ı´íÎóÊäÈë
 				bar1();
 				printf("\n");
 				printf("\n");
-				printf("          æ‚¨è¾“å…¥çš„æ•°å€¼æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥!        \n");
+				printf("          ÄúÊäÈëµÄÊıÖµÓĞÎó£¬ÇëÖØĞÂÊäÈë!        \n");
 				printf("\n");
 				printf("\n");
 				bar1();
 				break;
-			case 1: //Fastbooté‡å¯åˆ°Recovery
+			case 1: //FastbootÖØÆôµ½Recovery
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€,å¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
-				system_plus("echo boot-recovery > misc.bin"); //åˆ›å»ºmiscæ–‡ä»¶
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬,Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
+				system_plus("echo boot-recovery > misc.bin"); //´´½¨miscÎÄ¼ş
 				system_plus("fastboot flash misc misc.bin");
-				system_plus("del misc.bin"); //æ¸…ç†æ–‡ä»¶
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Fastboot\n");
+				system_plus("del misc.bin"); //ÇåÀíÎÄ¼ş
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Fastboot\n");
 				system_plus("fastboot reboot");
 				bar1();
 				break;
-			case 2: //å¼€æœºçŠ¶æ€é‡å¯åˆ°Recovery
+			case 2: //¿ª»ú×´Ì¬ÖØÆôµ½Recovery
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€,å¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬,Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-device devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:System\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:System\n");
 				system_plus("adb reboot recovery");
 				bar1();
 				break;
-			case 3: //åªæ‰©å®¹Systemåˆ†åŒº 
+			case 3: //Ö»À©ÈİSystem·ÖÇø 
 				userdata_partition_end = 62500;
 
 				init();
@@ -104,14 +104,14 @@ int main(void) {
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition1();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Dataåˆ†åŒº
+				system_plus(mkpart_command); //½¨Á¢Data·ÖÇø
 				break;
-			case 4: //åŒæ—¶æ‰©å®¹Systemä¸Vendoråˆ†åŒº
+			case 4: //Í¬Ê±À©ÈİSystemÓëVendor·ÖÇø
 				userdata_partition_end = 62500;
 
 				init();
@@ -124,140 +124,140 @@ int main(void) {
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Vendoråˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Vendor·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Dataåˆ†åŒº
+				system_plus(mkpart_command); //½¨Á¢Data·ÖÇø
 				break;
-			case 5: //æ‰©å®¹Systemä¸º5GBã€Vendoråˆ†åŒºä¸º2GB
+			case 5: //À©ÈİSystemÎª5GB¡¢Vendor·ÖÇøÎª2GB
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 5605 10725");
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 10726 12774");
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 12775 62.5g");
-				printf("æ‰©å®¹å®Œæˆ\n");
-				printf("è¯·é‡å¯è®¾å¤‡...\n");
+				printf("À©ÈİÍê³É\n");
+				printf("ÇëÖØÆôÉè±¸...\n");
 				break;
-			case 6: //è¿˜åŸåŸåˆ†åŒºè¡¨
+			case 6: //»¹Ô­Ô­·ÖÇø±í
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("æ¢å¤Systemåˆ†åŒº...\n");
+				printf("»Ö¸´System·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
-				printf("æ¢å¤Vendoråˆ†åŒº...\n");
+				printf("»Ö¸´Vendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 4521 5595");
-				printf("æ¢å¤Userdataåˆ†åŒº...\n");
+				printf("»Ö¸´Userdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 5604 62.5g");
-				printf("æ¢å¤å®Œæˆ\n");
+				printf("»Ö¸´Íê³É\n");
 				break;
-			case 7: //è·å–æ‰‹æœºå½“å‰åˆ†åŒºè¡¨æ•°æ®
+			case 7: //»ñÈ¡ÊÖ»úµ±Ç°·ÖÇø±íÊı¾İ
 				init();
 				system_plus("adb shell parted /dev/block/mmcblk0 print > PartitionTable.txt");
-				printf("å·²æˆåŠŸå°†æ‰‹æœºå½“å‰åˆ†åŒºè¡¨æ•°æ®è¾“å‡ºè‡³PartitionTable.txt,è¯·æŸ¥é˜…!\n");
+				printf("ÒÑ³É¹¦½«ÊÖ»úµ±Ç°·ÖÇø±íÊı¾İÊä³öÖÁPartitionTable.txt,Çë²éÔÄ!\n");
 				break;
-			case 8: //TWRPè‡ªå¸¦æ ¼å¼åŒ–Systemåˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)
+			case 8: //TWRP×Ô´ø¸ñÊ½»¯System·ÖÇø(ĞèÒªTWRPÖ§³Ö)
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount system");
-				printf("å¼€å§‹æ ¼å¼åŒ–Systemåˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯System·ÖÇø\n");
 				system_plus("adb shell twrp wipe system");
-				printf("æ ¼å¼åŒ–Systemåˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯System·ÖÇøÍê³É\n");
 				break;
-			case 9: //æ ¼å¼åŒ–Systemåˆ†åŒº
+			case 9: //¸ñÊ½»¯System·ÖÇø
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount system");
-				printf("å¼€å§‹æ ¼å¼åŒ–Systemåˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯System·ÖÇø\n");
 				system_plus("adb shell mke2fs -t ext2 /dev/block/bootdevice/by-name/system");
-				printf("æ ¼å¼åŒ–Systemåˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯System·ÖÇøÍê³É\n");
 				break;
-			case 10: //TWRPè‡ªå¸¦æ ¼å¼åŒ–Vendoråˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)
+			case 10: //TWRP×Ô´ø¸ñÊ½»¯Vendor·ÖÇø(ĞèÒªTWRPÖ§³Ö)
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount vendor");
-				printf("å¼€å§‹æ ¼å¼åŒ–Vendoråˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Vendor·ÖÇø\n");
 				system_plus("adb shell twrp wipe vendor");
-				printf("æ ¼å¼åŒ–Vendoråˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯Vendor·ÖÇøÍê³É\n");
 				break;
-			case 11: //æ ¼å¼åŒ–Vendoråˆ†åŒº
+			case 11: //¸ñÊ½»¯Vendor·ÖÇø
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount vendor");
-				printf("å¼€å§‹æ ¼å¼åŒ–Vendoråˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Vendor·ÖÇø\n");
 				system_plus("adb shell mke2fs -t ext2 /dev/block/bootdevice/by-name/vendor");
-				printf("æ ¼å¼åŒ–Vendoråˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯Vendor·ÖÇøÍê³É\n");
 				break;
-			case 12: //é€šç”¨æ ¼å¼åŒ–Dataåˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)
+			case 12: //Í¨ÓÃ¸ñÊ½»¯Data·ÖÇø(ĞèÒªTWRPÖ§³Ö)
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount data");
-				printf("å¼€å§‹æ ¼å¼åŒ–Dataåˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Data·ÖÇø\n");
 				system_plus("adb shell twrp format data");
-				printf("æ ¼å¼åŒ–Dataåˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯Data·ÖÇøÍê³É\n");
 				break;
-			case 13: //æ ¼å¼åŒ–Dataåˆ†åŒº_R11
+			case 13: //¸ñÊ½»¯Data·ÖÇø_R11
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system_plus("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system_plus("adb shell twrp umount data");
-				printf("å¼€å§‹æ ¼å¼åŒ–Dataåˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Data·ÖÇø\n");
 				system_plus("adb shell mke2fs -t ext4 /dev/block/bootdevice/by-name/userdata");
-				printf("æ ¼å¼åŒ–Dataåˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯Data·ÖÇøÍê³É\n");
 				break;
-			case 14: //æ ¼å¼åŒ–Dataåˆ†åŒº_R11s
+			case 14: //¸ñÊ½»¯Data·ÖÇø_R11s
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 				system("adb root");
 				bar2();
-				printf("è§£é™¤æŒ‚è½½...\n");
+				printf("½â³ı¹ÒÔØ...\n");
 				system("adb shell twrp umount data");
-				printf("å¼€å§‹æ ¼å¼åŒ–Dataåˆ†åŒº\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Data·ÖÇø\n");
 				system("adb shell make_f2fs /dev/block/bootdevice/by-name/userdata");
-				printf("æ ¼å¼åŒ–Dataåˆ†åŒºå®Œæˆ\n");
+				printf("¸ñÊ½»¯Data·ÖÇøÍê³É\n");
 				break;
-			case 15: //128G åªæ‰©å®¹Systemåˆ†åŒº
+			case 15: //128G Ö»À©ÈİSystem·ÖÇø
 				userdata_partition_end = 125000;
 
 				init();
@@ -267,14 +267,14 @@ int main(void) {
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition1();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Dataåˆ†åŒº
+				system_plus(mkpart_command); //½¨Á¢Data·ÖÇø
 				break;
-			case 16: //128G åŒæ—¶æ‰©å®¹Systemä¸Vendoråˆ†åŒº
+			case 16: //128G Í¬Ê±À©ÈİSystemÓëVendor·ÖÇø
 				userdata_partition_end = 125000;
 
 				init();
@@ -287,70 +287,70 @@ int main(void) {
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Vendoråˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Vendor·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Dataåˆ†åŒº
+				system_plus(mkpart_command); //½¨Á¢Data·ÖÇø
 				break;
-			case 17: //128G æ‰©å®¹Systemä¸º5GBã€Vendoråˆ†åŒºä¸º2GB
+			case 17: //128G À©ÈİSystemÎª5GB¡¢Vendor·ÖÇøÎª2GB
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 5605 10725");
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 10726 12774");
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 12775 125g");
-				printf("æ‰©å®¹å®Œæˆ\n");
+				printf("À©ÈİÍê³É\n");
 				break;
-			case 18: //128G è¿˜åŸåŸåˆ†åŒºè¡¨
+			case 18: //128G »¹Ô­Ô­·ÖÇø±í
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition2();
-				printf("æ¢å¤Systemåˆ†åŒº...\n");
+				printf("»Ö¸´System·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
-				printf("æ¢å¤Vendoråˆ†åŒº...\n");
+				printf("»Ö¸´Vendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 4521 5595");
-				printf("æ¢å¤Userdataåˆ†åŒº...\n");
+				printf("»Ö¸´Userdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 5604 125g");
-				printf("æ¢å¤å®Œæˆ\n");
+				printf("»Ö¸´Íê³É\n");
 				break;
-			case 19: //ç§»é™¤è°·æ­Œé”
+			case 19: //ÒÆ³ı¹È¸èËø
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
-				printf("å¼€å§‹æ“¦é™¤frpåˆ†åŒº...\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
+				printf("¿ªÊ¼²Á³ıfrp·ÖÇø...\n");
 				system_plus("adb shell dd if=/dev/zero of=/dev/block/by-name/frp bs=1k count=512");
-				printf("å¼€å§‹æ ¼å¼åŒ–Dataåˆ†åŒº...\n");
+				printf("¿ªÊ¼¸ñÊ½»¯Data·ÖÇø...\n");
 				system_plus("adb shell twrp format data");
-				printf("ç§»é™¤è°·æ­Œé”å®Œæˆ\n");
+				printf("ÒÆ³ı¹È¸èËøÍê³É\n");
 				break;
-			case 20: //ç§»é™¤é”å±å¯†ç 
+			case 20: //ÒÆ³ıËøÆÁÃÜÂë
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
-				printf("æŒ‚è½½Dataåˆ†åŒº...\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
+				printf("¹ÒÔØData·ÖÇø...\n");
 				system_plus("adb shell twrp mount data");
-				printf("ç§»é™¤é”å±å¯†ç æ–‡ä»¶...\n");
+				printf("ÒÆ³ıËøÆÁÃÜÂëÎÄ¼ş...\n");
 				system_plus("adb shell rm -f /data/system/locksettings.db");
-				printf("ç§»é™¤é”å±å¯†ç å®Œæˆ\n");
+				printf("ÒÆ³ıËøÆÁÃÜÂëÍê³É\n");
 				break;
-			case 21: //å¤‡ä»½åŸºå¸¦
+			case 21: //±¸·İ»ù´ø
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
-				printf("å¼€å§‹å¤‡ä»½...\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
+				printf("¿ªÊ¼±¸·İ...\n");
 				system_plus("adb shell dd if=/dev/block/mmcblk0p3 of=/tmp/efs1.img");
 				system_plus("adb shell dd if=/dev/block/mmcblk0p4 of=/tmp/efs2.img");
 				system_plus("adb shell dd if=/dev/block/mmcblk0p20 of=/tmp/fsg.img");
@@ -359,18 +359,18 @@ int main(void) {
 				system_plus("adb pull /tmp/efs2.img efs2.img");
 				system_plus("adb pull /tmp/fsg.img fsg.img");
 				system_plus("adb pull /tmp/fsc.img fsc.img");
-				printf("å¤‡ä»½å®Œæˆ\n");
+				printf("±¸·İÍê³É\n");
 				break;
-			case 22: //æ¢å¤åŸºå¸¦
+			case 22: //»Ö¸´»ù´ø
 				checkfile("efs1.img");
 				checkfile("efs2.img");
 				checkfile("fsg.img");
 				checkfile("fsc.img");
 				bar1();
-				printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€ï¼Œå¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+				printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬£¬Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 				system_plus("adb wait-for-recovery devices");
-				printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
-				printf("å¼€å§‹æ¢å¤...\n");
+				printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
+				printf("¿ªÊ¼»Ö¸´...\n");
 				system_plus("adb push efs1.img /tmp/efs1.img");
 				system_plus("adb push efs2.img /tmp/efs2.img");
 				system_plus("adb push fsg.img /tmp/fsg.img");
@@ -379,14 +379,14 @@ int main(void) {
 				system_plus("adb shell dd if=/tmp/efs2.img of=/dev/block/mmcblk0p4");
 				system_plus("adb shell dd if=/tmp/fsg.img of=/dev/block/mmcblk0p20");
 				system_plus("adb shell dd if=/tmp/fsc.img of=/dev/block/mmcblk0p51");
-				printf("æ¢å¤å®Œæˆ\n");
+				printf("»Ö¸´Íê³É\n");
 				break;
-			case 23: //å¼€å§‹å®‰è£…åŒç³»ç»Ÿ(64GBä¸»æ¿)
+			case 23: //¿ªÊ¼°²×°Ë«ÏµÍ³(64GBÖ÷°å)
 				userdata_bak_partition_end = 62500;
 
 				init();
 				confirm_operation();
-				//ç”¨æˆ·è¾“å…¥è‡ªå®šä¹‰å®¹é‡å¹¶è®¡ç®—åˆ†åŒºèµ·å§‹ä½ç½®
+				//ÓÃ»§ÊäÈë×Ô¶¨ÒåÈİÁ¿²¢¼ÆËã·ÖÇøÆğÊ¼Î»ÖÃ
 				partition_size = enter_system_partition_size();
 				system_bak_partition_start = system_partition_end = system_partition_start + partition_size;
 				vendor_partition_start = system_bak_partition_end = system_bak_partition_start + partition_size;
@@ -395,29 +395,29 @@ int main(void) {
 				userdata_bak_partition_start = userdata_partition_end = (int)((userdata_bak_partition_end - userdata_partition_start) / 2) + userdata_partition_start;
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„System_bakåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄSystem_bak·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system_bak EXT4 %d %d", system_bak_partition_start, system_bak_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹System_bakåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System_bak·ÖÇø
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Vendoråˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Vendor·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Userdataåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdata_bakåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Userdata·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata_bak·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata_bak EXT4 %d %d", userdata_bak_partition_start, userdata_bak_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Userdata_bakåˆ†åŒº
-				printf("åŒç³»ç»Ÿåˆ†åŒºæˆåŠŸ\n");
+				system_plus(mkpart_command); //½¨Á¢Userdata_bak·ÖÇø
+				printf("Ë«ÏµÍ³·ÖÇø³É¹¦\n");
 				break;
-			case 24: //å¼€å§‹å®‰è£…åŒç³»ç»Ÿ(128GBä¸»æ¿)
+			case 24: //¿ªÊ¼°²×°Ë«ÏµÍ³(128GBÖ÷°å)
 				userdata_bak_partition_end = 125000;
 				
 				init();
 				confirm_operation();
-				//ç”¨æˆ·è¾“å…¥è‡ªå®šä¹‰å®¹é‡å¹¶è®¡ç®—åˆ†åŒºèµ·å§‹ä½ç½®
+				//ÓÃ»§ÊäÈë×Ô¶¨ÒåÈİÁ¿²¢¼ÆËã·ÖÇøÆğÊ¼Î»ÖÃ
 				partition_size = enter_system_partition_size();
 				system_bak_partition_start = system_partition_end = system_partition_start + partition_size;
 				vendor_partition_start = system_bak_partition_end = system_bak_partition_start + partition_size;
@@ -426,24 +426,24 @@ int main(void) {
 				userdata_bak_partition_start = userdata_partition_end = (int)((userdata_bak_partition_end - userdata_partition_start) / 2) + userdata_partition_start;
 				umount_partition();
 				parted_rm_partition2();
-				printf("å»ºç«‹æ–°çš„Systemåˆ†åŒº...\n");
+				printf("½¨Á¢ĞÂµÄSystem·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system EXT4 %d %d", system_partition_start, system_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Systemåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„System_bakåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System·ÖÇø
+				printf("½¨Á¢ĞÂµÄSystem_bak·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart system_bak EXT4 %d %d", system_bak_partition_start, system_bak_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹System_bakåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Vendoråˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢System_bak·ÖÇø
+				printf("½¨Á¢ĞÂµÄVendor·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 %d %d", vendor_partition_start, vendor_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Vendoråˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdataåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Vendor·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 %d %d", userdata_partition_start, userdata_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Userdataåˆ†åŒº
-				printf("å»ºç«‹æ–°çš„Userdata_bakåˆ†åŒº...\n");
+				system_plus(mkpart_command); //½¨Á¢Userdata·ÖÇø
+				printf("½¨Á¢ĞÂµÄUserdata_bak·ÖÇø...\n");
 				sprintf(mkpart_command, "adb shell parted /dev/block/mmcblk0 mkpart userdata_bak EXT4 %d %d", userdata_bak_partition_start, userdata_bak_partition_end);
-				system_plus(mkpart_command); //å»ºç«‹Userdata_bakåˆ†åŒº
-				printf("åŒç³»ç»Ÿåˆ†åŒºæˆåŠŸ\n");
+				system_plus(mkpart_command); //½¨Á¢Userdata_bak·ÖÇø
+				printf("Ë«ÏµÍ³·ÖÇø³É¹¦\n");
 				break;
-			case 25: //åˆ‡æ¢è‡³ç³»ç»Ÿä¸€
+			case 25: //ÇĞ»»ÖÁÏµÍ³Ò»
 				init();
 				confirm_operation();
 				system_plus("adb shell parted /dev/block/mmcblk0 name 66 system");
@@ -451,9 +451,9 @@ int main(void) {
 				system_plus("adb shell parted /dev/block/mmcblk0 name 70 userdata");
 				system_plus("adb shell parted /dev/block/mmcblk0 name 71 userdata_bak");
 				system_plus("adb reboot");
-				printf("åˆ‡æ¢è‡³ç³»ç»Ÿä¸€æˆåŠŸ\n");
+				printf("ÇĞ»»ÖÁÏµÍ³Ò»³É¹¦\n");
 				break;
-			case 26: //åˆ‡æ¢è‡³ç³»ç»ŸäºŒ
+			case 26: //ÇĞ»»ÖÁÏµÍ³¶ş
 				init();
 				confirm_operation();
 				system_plus("adb shell parted /dev/block/mmcblk0 name 67 system");
@@ -461,37 +461,37 @@ int main(void) {
 				system_plus("adb shell parted /dev/block/mmcblk0 name 71 userdata");
 				system_plus("adb shell parted /dev/block/mmcblk0 name 70 userdata_bak");
 				system_plus("adb reboot");
-				printf("åˆ‡æ¢è‡³ç³»ç»ŸäºŒæˆåŠŸ\n");
+				printf("ÇĞ»»ÖÁÏµÍ³¶ş³É¹¦\n");
 				break;
-			case 27: //è¿˜åŸåˆ†åŒºè¡¨(64GBä¸»æ¿)
+			case 27: //»¹Ô­·ÖÇø±í(64GBÖ÷°å)
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition3();
-				printf("æ¢å¤Systemåˆ†åŒº...\n");
+				printf("»Ö¸´System·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
-				printf("æ¢å¤Vendoråˆ†åŒº...\n");
+				printf("»Ö¸´Vendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 4521 5595");
-				printf("æ¢å¤Userdataåˆ†åŒº...\n");
+				printf("»Ö¸´Userdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 5604 62.5g");
-				printf("æ¢å¤å®Œæˆ\n");
+				printf("»Ö¸´Íê³É\n");
 				break;
-			case 28: //è¿˜åŸåˆ†åŒºè¡¨(128GBä¸»æ¿)
+			case 28: //»¹Ô­·ÖÇø±í(128GBÖ÷°å)
 				init();
 				confirm_operation();
 				umount_partition();
 				parted_rm_partition3();
-				printf("æ¢å¤Systemåˆ†åŒº...\n");
+				printf("»Ö¸´System·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart system EXT4 1040 4521");
-				printf("æ¢å¤Vendoråˆ†åŒº...\n");
+				printf("»Ö¸´Vendor·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart vendor EXT4 4521 5595");
-				printf("æ¢å¤Userdataåˆ†åŒº...\n");
+				printf("»Ö¸´Userdata·ÖÇø...\n");
 				system_plus("adb shell parted /dev/block/mmcblk0 mkpart userdata EXT4 5604 125g");
-				printf("æ¢å¤å®Œæˆ\n");
+				printf("»Ö¸´Íê³É\n");
 				break;
 		}
 		bar1();
-		printf("æŒ‰å›è½¦é”®è¿”å›ä¸»èœå•");
+		printf("°´»Ø³µ¼ü·µ»ØÖ÷²Ëµ¥");
 		getchar();
 		clearscreen();
 	}
@@ -501,17 +501,17 @@ void system_plus(const char *command) {
 	char choose;
 
 	if (system(command) != 0) {
-		printf("æ£€æµ‹åˆ°å‘½ä»¤å¯èƒ½æ‰§è¡Œå¤±è´¥,æ˜¯å¦é‡è¯•(y/N)");
+		printf("¼ì²âµ½ÃüÁî¿ÉÄÜÖ´ĞĞÊ§°Ü,ÊÇ·ñÖØÊÔ(y/N)");
 		if (scanf("%c", &choose) == 1) {
 			safe_flush(stdin);
 			if (choose == 'y' || choose == 'Y') {
 				for (int i = 1; i <= 3; i++) {
-					printf("æ­£åœ¨é‡è¯•...(ç¬¬%dæ¬¡/å…±3æ¬¡)\n", i);
+					printf("ÕıÔÚÖØÊÔ...(µÚ%d´Î/¹²3´Î)\n", i);
 					if (system(command) == 0)
 						return;
 				}
-	   			printf("å‘½ä»¤å¤šæ¬¡æ‰§è¡Œå¤±è´¥,æ‚¨å¯ä»¥ç»§ç»­æ“ä½œ,ä½†é€ æˆçš„åæœä½œè€…ä¸äºˆæ‰¿æ‹…\n");
-				printf("æ˜¯å¦ç»§ç»­æ“ä½œ(y/N)");
+	   			printf("ÃüÁî¶à´ÎÖ´ĞĞÊ§°Ü,Äú¿ÉÒÔ¼ÌĞø²Ù×÷,µ«Ôì³ÉµÄºó¹û×÷Õß²»Óè³Ğµ£\n");
+				printf("ÊÇ·ñ¼ÌĞø²Ù×÷(y/N)");
 				if (scanf("%c", &choose) == 1) {
 					safe_flush(stdin);
 					if (choose == 'y' || choose == 'Y')
@@ -536,10 +536,10 @@ void bar2(void) {
 void confirm_operation(void) {
 	char choose;
 
-	printf("æ­¤æ“ä½œå¯èƒ½ä¼šå¯¼è‡´ä½ çš„æ‰‹æœºå˜ç –,ç¡®è®¤è¦ç»§ç»­æ“ä½œå—?(y/N)");
+	printf("´Ë²Ù×÷¿ÉÄÜ»áµ¼ÖÂÄãµÄÊÖ»ú±ä×©,È·ÈÏÒª¼ÌĞø²Ù×÷Âğ?(y/N)");
 	scanf("%c", &choose);
-	safe_flush(stdin); //æ¸…é™¤stdinç¼“å­˜
-	if (choose == 'Y' || choose == 'y') //åˆ¤æ–­ç”¨æˆ·çš„è¾“å…¥æ˜¯å¦åˆæ³•
+	safe_flush(stdin); //Çå³ıstdin»º´æ
+	if (choose == 'Y' || choose == 'y') //ÅĞ¶ÏÓÃ»§µÄÊäÈëÊÇ·ñºÏ·¨
 		return;
 	else
 		exit(0);
@@ -551,49 +551,49 @@ void safe_flush(FILE *fp) {
 }
 void init(void) {
 	bar1();
-	printf("æ­£åœ¨æ£€æµ‹è®¾å¤‡è¿æ¥çŠ¶æ€,å¦‚æœé•¿æ—¶é—´å¡åœ¨æ­¤å¤„è¯·æ£€æŸ¥è®¾å¤‡åŠè®¾å¤‡é©±åŠ¨ç¨‹åº\n");
+	printf("ÕıÔÚ¼ì²âÉè±¸Á¬½Ó×´Ì¬,Èç¹û³¤Ê±¼ä¿¨ÔÚ´Ë´¦Çë¼ì²éÉè±¸¼°Éè±¸Çı¶¯³ÌĞò\n");
 	system_plus("adb wait-for-recovery devices");
-	printf("è®¾å¤‡å·²è¿æ¥!   çŠ¶æ€:Recovery\n");
+	printf("Éè±¸ÒÑÁ¬½Ó!   ×´Ì¬:Recovery\n");
 	system_plus("adb push parted /sbin/parted");
-	printf("Partedå·²ç»æ¨é€è¿‡å»å•¦!è¿›è¡Œä¸‹ä¸€æ­¥æ“ä½œ\n");
+	printf("PartedÒÑ¾­ÍÆËÍ¹ıÈ¥À²!½øĞĞÏÂÒ»²½²Ù×÷\n");
 	system_plus("adb root");
 	system_plus("adb shell chmod 0755 /sbin/parted");
-	printf("å·²ç»æŠŠPartedäºŒè¿›åˆ¶æ–‡ä»¶èµ‹äºˆ755æƒé™å•¦!\n");
+	printf("ÒÑ¾­°ÑParted¶ş½øÖÆÎÄ¼ş¸³Óè755È¨ÏŞÀ²!\n");
 	bar2();
 }
 void umount_partition(void) {
-	printf("è§£é™¤æŒ‚è½½...\n");
+	printf("½â³ı¹ÒÔØ...\n");
 	system_plus("adb shell twrp umount system");
 	system_plus("adb shell twrp umount vendor");
 	system_plus("adb shell twrp umount data");
 	bar2();
 }
 void parted_rm_partition1(void) {
-	printf("åˆ é™¤Systemåˆ†åŒº...\n");
+	printf("É¾³ıSystem·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
-	printf("åˆ é™¤Userdataåˆ†åŒº...\n");
+	printf("É¾³ıUserdata·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
 	bar2();
 }
 void parted_rm_partition2(void) {
-	printf("åˆ é™¤Systemåˆ†åŒº...\n");
+	printf("É¾³ıSystem·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
-	printf("åˆ é™¤Vendoråˆ†åŒº...\n");
+	printf("É¾³ıVendor·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 67");
-	printf("åˆ é™¤Userdataåˆ†åŒº...\n");
+	printf("É¾³ıUserdata·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
 	bar2();
 }
 void parted_rm_partition3(void) {
-	printf("åˆ é™¤Systemåˆ†åŒº...\n");
+	printf("É¾³ıSystem·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 66");
-	printf("åˆ é™¤System_bakåˆ†åŒº...\n");
+	printf("É¾³ıSystem_bak·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 67");
-	printf("åˆ é™¤Vendoråˆ†åŒº...\n");
+	printf("É¾³ıVendor·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 69");
-	printf("åˆ é™¤Userdataåˆ†åŒº...\n");
+	printf("É¾³ıUserdata·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 70");
-	printf("åˆ é™¤Userdata_bakåˆ†åŒº...\n");
+	printf("É¾³ıUserdata_bak·ÖÇø...\n");
 	system_plus("adb shell parted /dev/block/mmcblk0 rm 71");
 	bar2();
 }
@@ -613,15 +613,15 @@ void checkfile(char *filename) {
 		fclose(fp);
 		return;
 	} else {
-		printf("æ–‡ä»¶\"%s\"ä¸å­˜åœ¨,è¯·æ£€æŸ¥ç¨‹åºæ‰€åœ¨ç›®å½•\n", filename);
-		printf("æŒ‰å›è½¦é”®é€€å‡ºç¨‹åº");
+		printf("ÎÄ¼ş\"%s\"²»´æÔÚ,Çë¼ì²é³ÌĞòËùÔÚÄ¿Â¼\n", filename);
+		printf("°´»Ø³µ¼üÍË³ö³ÌĞò");
 		getchar();
 		exit(0);
 	}
 }
 void check_platfrom_and_parted_windows() {
 	checkfile("parted");
-	//è¦æ­£å¸¸ä½¿ç”¨adbå‘½ä»¤å¿…é¡»å­˜åœ¨ä»¥ä¸‹å‡ ä¸ªæ–‡ä»¶
+	//ÒªÕı³£Ê¹ÓÃadbÃüÁî±ØĞë´æÔÚÒÔÏÂ¼¸¸öÎÄ¼ş
 	checkfile("adb.exe");
 	checkfile("AdbWinApi.dll");
 	checkfile("AdbWinUsbApi.dll");
@@ -629,7 +629,7 @@ void check_platfrom_and_parted_windows() {
 }
 void check_platfrom_and_parted_linux() {
 	checkfile("parted");
-	//è¦æ­£å¸¸ä½¿ç”¨adbå‘½ä»¤å¿…é¡»å­˜åœ¨ä»¥ä¸‹å‡ ä¸ªæ–‡ä»¶
+	//ÒªÕı³£Ê¹ÓÃadbÃüÁî±ØĞë´æÔÚÒÔÏÂ¼¸¸öÎÄ¼ş
 	checkfile("adb");
 	checkfile("fastboot");
 }
@@ -638,40 +638,40 @@ int menu(void) {
 	int choose2;
 
 	bar1();
-	printf("     æ¬¢è¿ä½¿ç”¨ R11 ç³»åˆ— Parted æ‰©å®¹å·¥å…·ç®±      \n");
-	printf("   æœ¬è½¯ä»¶ä»£ç æ‰˜ç®¡åœ¨ GitHub å¹¶é‡‡ç”¨ MPL å¼€æº    \n");
+	printf("     »¶Ó­Ê¹ÓÃ R11 ÏµÁĞ Parted À©Èİ¹¤¾ßÏä      \n");
+	printf("   ±¾Èí¼ş´úÂëÍĞ¹ÜÔÚ GitHub ²¢²ÉÓÃ MPL ¿ªÔ´    \n");
 	bar1();
-	printf("     è¯·ç¡®ä¿æ‚¨çš„ TWRP ç‰ˆæœ¬å¤§äºç­‰äº 3.6.x       \n");
+	printf("     ÇëÈ·±£ÄúµÄ TWRP °æ±¾´óÓÚµÈÓÚ 3.6.x       \n");
 	bar1();
 	printf("\n");
-	printf("- 01.é‡å¯åŠŸèƒ½åŒº\n");
-	printf("- 02.æ‰©å®¹åŠŸèƒ½åŒº\n");
-	printf("- 03.æ¸…é™¤åŠŸèƒ½åŒº\n");
-	printf("- 04.128GBä¸»æ¿ä¸“åŒº\n");
-	printf("- 05.å®ç”¨åŠŸèƒ½åŒº\n");
-	printf("- 06.åŒç³»ç»ŸåŠŸèƒ½åŒº\n");
+	printf("- 01.ÖØÆô¹¦ÄÜÇø\n");
+	printf("- 02.À©Èİ¹¦ÄÜÇø\n");
+	printf("- 03.Çå³ı¹¦ÄÜÇø\n");
+	printf("- 04.128GBÖ÷°å×¨Çø\n");
+	printf("- 05.ÊµÓÃ¹¦ÄÜÇø\n");
+	printf("- 06.Ë«ÏµÍ³¹¦ÄÜÇø\n");
 	printf("\n");
 	bar2();
-	printf("- 0.é€€å‡º                           ç‰ˆæœ¬:%s\n", VERSION);
+	printf("- 0.ÍË³ö                           °æ±¾:%s\n", VERSION);
 	bar1();
 	 while (1) {
-		printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+		printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 		if (scanf("%d", &choose1) == 1) {
-			safe_flush(stdin); //æ¸…é™¤stdin
+			safe_flush(stdin); //Çå³ıstdin
 
 			clearscreen();
-			switch (choose1) { //äºŒçº§èœå•
+			switch (choose1) { //¶ş¼¶²Ëµ¥
 				case 0:
 					clearscreen();
-					return -2; //è¿”å›å€¼-2,ç”±ä¸»å‡½æ•°é€€å‡ºç¨‹åº
+					return -2; //·µ»ØÖµ-2,ÓÉÖ÷º¯ÊıÍË³ö³ÌĞò
 				case 1:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("                ==é‡å¯åŠŸèƒ½åŒº==              \n");
+					printf("                ==ÖØÆô¹¦ÄÜÇø==              \n");
 					printf("\n");
-					printf("- 01.Fastbooté‡å¯åˆ°Recovery\n");
-					printf("- 02.å¼€æœºçŠ¶æ€é‡å¯åˆ°Recovery\n");
+					printf("- 01.FastbootÖØÆôµ½Recovery\n");
+					printf("- 02.¿ª»ú×´Ì¬ÖØÆôµ½Recovery\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
@@ -681,95 +681,95 @@ int menu(void) {
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 1:
 							case 2:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				case 2:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("                ==æ‰©å®¹åŠŸèƒ½åŒº==              \n");
+					printf("                ==À©Èİ¹¦ÄÜÇø==              \n");
 					printf("\n");
-					printf("- 03.åªæ‰©å®¹Systemåˆ†åŒº\n");
-					printf("- 04.åŒæ—¶æ‰©å®¹Systemä¸Vendoråˆ†åŒº\n");
-					printf("- 05.æ‰©å®¹Systemä¸º5GBã€Vendoråˆ†åŒºä¸º2GB\n");
-					printf("- 06.è¿˜åŸåŸåˆ†åŒºè¡¨\n");
-					printf("- 07.è·å–æ‰‹æœºå½“å‰åˆ†åŒºè¡¨æ•°æ®\n");
+					printf("- 03.Ö»À©ÈİSystem·ÖÇø\n");
+					printf("- 04.Í¬Ê±À©ÈİSystemÓëVendor·ÖÇø\n");
+					printf("- 05.À©ÈİSystemÎª5GB¡¢Vendor·ÖÇøÎª2GB\n");
+					printf("- 06.»¹Ô­Ô­·ÖÇø±í\n");
+					printf("- 07.»ñÈ¡ÊÖ»úµ±Ç°·ÖÇø±íÊı¾İ\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 3:
 							case 4:
 							case 5:
 							case 6:
 							case 7:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				case 3:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("                ==æ¸…é™¤åŠŸèƒ½åŒº==              \n");
+					printf("                ==Çå³ı¹¦ÄÜÇø==              \n");
 					printf("\n");
-					printf("- 08.TWRPè‡ªå¸¦æ ¼å¼åŒ–Systemåˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)\n");
-					printf("- 09.æ ¼å¼åŒ–Systemåˆ†åŒº\n");
-					printf("- 10.TWRPè‡ªå¸¦æ ¼å¼åŒ–Vendoråˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)\n");
-					printf("- 11.æ ¼å¼åŒ–Vendoråˆ†åŒº\n");
-					printf("- 12.é€šç”¨æ ¼å¼åŒ–Dataåˆ†åŒº(éœ€è¦TWRPæ”¯æŒ)\n");
-					printf("- 13.æ ¼å¼åŒ–Dataåˆ†åŒº_R11\n");
-					printf("- 14.æ ¼å¼åŒ–Dataåˆ†åŒº_R11s\n");
+					printf("- 08.TWRP×Ô´ø¸ñÊ½»¯System·ÖÇø(ĞèÒªTWRPÖ§³Ö)\n");
+					printf("- 09.¸ñÊ½»¯System·ÖÇø\n");
+					printf("- 10.TWRP×Ô´ø¸ñÊ½»¯Vendor·ÖÇø(ĞèÒªTWRPÖ§³Ö)\n");
+					printf("- 11.¸ñÊ½»¯Vendor·ÖÇø\n");
+					printf("- 12.Í¨ÓÃ¸ñÊ½»¯Data·ÖÇø(ĞèÒªTWRPÖ§³Ö)\n");
+					printf("- 13.¸ñÊ½»¯Data·ÖÇø_R11\n");
+					printf("- 14.¸ñÊ½»¯Data·ÖÇø_R11s\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 8:
 							case 9:
 							case 10:
@@ -778,24 +778,24 @@ int menu(void) {
 							case 13:
 							case 14:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				case 4:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("               ==128GBä¸»æ¿ä¸“åŒº==              \n");
+					printf("               ==128GBÖ÷°å×¨Çø==              \n");
 					printf("\n");
-					printf("- 15.åªæ‰©å®¹Systemåˆ†åŒº\n");
-					printf("- 16.åŒæ—¶æ‰©å®¹Systemä¸Vendoråˆ†åŒº\n");
-					printf("- 17.æ‰©å®¹Systemä¸º5GBã€Vendoråˆ†åŒºä¸º2GB\n");
-					printf("- 18.è¿˜åŸåŸåˆ†åŒºè¡¨\n");
+					printf("- 15.Ö»À©ÈİSystem·ÖÇø\n");
+					printf("- 16.Í¬Ê±À©ÈİSystemÓëVendor·ÖÇø\n");
+					printf("- 17.À©ÈİSystemÎª5GB¡¢Vendor·ÖÇøÎª2GB\n");
+					printf("- 18.»¹Ô­Ô­·ÖÇø±í\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
@@ -803,39 +803,39 @@ int menu(void) {
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 15:
 							case 16:
 							case 17:
 							case 18:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				case 5:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("                ==å®ç”¨åŠŸèƒ½åŒº==                 \n");
+					printf("                ==ÊµÓÃ¹¦ÄÜÇø==                 \n");
 					printf("\n");
-					printf("- 19.ç§»é™¤è°·æ­Œé”\n");
-					printf("- 20.ç§»é™¤é”å±å¯†ç \n");
-					printf("- 21.å¤‡ä»½åŸºå¸¦\n");
-					printf("- 22.æ¢å¤åŸºå¸¦\n");
+					printf("- 19.ÒÆ³ı¹È¸èËø\n");
+					printf("- 20.ÒÆ³ıËøÆÁÃÜÂë\n");
+					printf("- 21.±¸·İ»ù´ø\n");
+					printf("- 22.»Ö¸´»ù´ø\n");
 					printf("\n");
 					printf("\n");
 					printf("\n");
@@ -843,56 +843,56 @@ int menu(void) {
 					printf("\n");
 					printf("\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 19:
 							case 20:
 							case 21:
 							case 22:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				case 6:
 					bar1();
 					printf(" <                                               \n");
 					bar2();
-					printf("               ==åŒç³»ç»ŸåŠŸèƒ½åŒº==                \n");
-					printf("ç”¨å‰å£°æ˜:\n");
-					printf(" 1.åœ¨ä½¿ç”¨æ­¤å¤„åŠŸèƒ½å‰è¯·ç¡®ä¿æ‚¨å…·å¤‡æ•‘ç –çš„èƒ½åŠ›\n");
-					printf(" 2.åŒç³»ç»Ÿå°†å…±ç”¨Boot,Vendorå’ŒFirmware,ç”¨æˆ·æ•°æ®å¹³åˆ†\n");
-					printf(" 3.ä¸¤ä¸ªç³»ç»Ÿåªèƒ½ä¸ºå…¶ä¸­ä¸€ä¸ªç³»ç»Ÿè®¾ç½®å¯†ç \n");
+					printf("               ==Ë«ÏµÍ³¹¦ÄÜÇø==                \n");
+					printf("ÓÃÇ°ÉùÃ÷:\n");
+					printf(" 1.ÔÚÊ¹ÓÃ´Ë´¦¹¦ÄÜÇ°ÇëÈ·±£Äú¾ß±¸¾È×©µÄÄÜÁ¦\n");
+					printf(" 2.Ë«ÏµÍ³½«¹²ÓÃBoot,VendorºÍFirmware,ÓÃ»§Êı¾İÆ½·Ö\n");
+					printf(" 3.Á½¸öÏµÍ³Ö»ÄÜÎªÆäÖĞÒ»¸öÏµÍ³ÉèÖÃÃÜÂë\n");
 					bar2();
-					printf("- 23.å¼€å§‹å®‰è£…åŒç³»ç»Ÿ(64GBä¸»æ¿)\n");
-					printf("- 24.å¼€å§‹å®‰è£…åŒç³»ç»Ÿ(128GBä¸»æ¿)\n");
-					printf("- 25.åˆ‡æ¢è‡³ç³»ç»Ÿä¸€\n");
-					printf("- 26.åˆ‡æ¢è‡³ç³»ç»ŸäºŒ\n");
-					printf("- 27.è¿˜åŸåˆ†åŒºè¡¨(64GBä¸»æ¿)\n");
-					printf("- 28.è¿˜åŸåˆ†åŒºè¡¨(128GBä¸»æ¿)\n");
+					printf("- 23.¿ªÊ¼°²×°Ë«ÏµÍ³(64GBÖ÷°å)\n");
+					printf("- 24.¿ªÊ¼°²×°Ë«ÏµÍ³(128GBÖ÷°å)\n");
+					printf("- 25.ÇĞ»»ÖÁÏµÍ³Ò»\n");
+					printf("- 26.ÇĞ»»ÖÁÏµÍ³¶ş\n");
+					printf("- 27.»¹Ô­·ÖÇø±í(64GBÖ÷°å)\n");
+					printf("- 28.»¹Ô­·ÖÇø±í(128GBÖ÷°å)\n");
 					bar2();
-					printf("- 0.è¿”å›ä¸»èœå•\n");
+					printf("- 0.·µ»ØÖ÷²Ëµ¥\n");
 					bar1();
-					printf("è¯·è¾“å…¥ä½ æƒ³è¦ä½¿ç”¨çš„åŠŸèƒ½åºå·:");
+					printf("ÇëÊäÈëÄãÏëÒªÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ:");
 					if (scanf("%d", &choose2) == 1) {
-						safe_flush(stdin); //æ¸…é™¤stdin
+						safe_flush(stdin); //Çå³ıstdin
 
 						switch(choose2) {
 							case 0:
 								clearscreen();
-								return -3; //ç”±ä¸»å‡½æ•°è¿”å›ä¸»èœå•
+								return -3; //ÓÉÖ÷º¯Êı·µ»ØÖ÷²Ëµ¥
 							case 23:
 							case 24:
 							case 25:
@@ -900,40 +900,40 @@ int menu(void) {
 							case 27:
 							case 28:
 								clearscreen();
-								return choose2; //ä¸»å‡½æ•°å¯¹åº”åŠŸèƒ½
+								return choose2; //Ö÷º¯Êı¶ÔÓ¦¹¦ÄÜ
 							default:
 								clearscreen();
-								return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+								return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 						}
 					} else
 						clearscreen();
-						return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+						return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 				default:
 					clearscreen();
-					return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+					return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 			}
 		} else {
-			safe_flush(stdin); //æ¸…é™¤stdin
+			safe_flush(stdin); //Çå³ıstdin
 			clearscreen();
-			return -1; //è¿”å›å€¼-1ï¼Œç”±ä¸»å‡½æ•°å»é™¤é”™è¯¯è¾“å…¥
+			return -1; //·µ»ØÖµ-1£¬ÓÉÖ÷º¯ÊıÈ¥³ı´íÎóÊäÈë
 		}
 	}
 }
 int enter_system_partition_size(void) {
 	int partition_size;
 	while (1) {
-		printf("è¯·è¾“å…¥æ‚¨è¦æ‰©å®¹çš„Systemåˆ†åŒºå¤§å°(å•ä½ä¸ºMB,èŒƒå›´ä¸º3481~10240):"); //é™å®šèŒƒå›´ï¼Œé˜²æ­¢è¯¯æ“ä½œ
+		printf("ÇëÊäÈëÄúÒªÀ©ÈİµÄSystem·ÖÇø´óĞ¡(µ¥Î»ÎªMB,·¶Î§Îª3481~10240):"); //ÏŞ¶¨·¶Î§£¬·ÀÖ¹Îó²Ù×÷
 		if (scanf("%d", &partition_size) == 1) {
-			safe_flush(stdin); //æ¸…é™¤stdin
+			safe_flush(stdin); //Çå³ıstdin
 			if (partition_size <= 10240 && partition_size >= 3481)
 				return partition_size;
 			else {
-				printf("æ‚¨è¾“å…¥çš„æ•°æ®è¿‡å¤§æˆ–è¿‡å°,å‡ºäºä¿æŠ¤,è¯·æ‚¨é‡æ–°è¾“å…¥Systemåˆ†åŒºå¤§å°\n");
+				printf("ÄúÊäÈëµÄÊı¾İ¹ı´ó»ò¹ıĞ¡,³öÓÚ±£»¤,ÇëÄúÖØĞÂÊäÈëSystem·ÖÇø´óĞ¡\n");
 				continue;
 			}
 		} else {
-			safe_flush(stdin); //æ¸…é™¤stdin
-			printf("æ‚¨è¾“å…¥çš„æ•°æ®æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥\n");
+			safe_flush(stdin); //Çå³ıstdin
+			printf("ÄúÊäÈëµÄÊı¾İÓĞÎó,ÇëÖØĞÂÊäÈë\n");
 			continue;
 		}
 	}
@@ -941,18 +941,18 @@ int enter_system_partition_size(void) {
 int enter_vendor_partition_size(void) {
 	int partition_size;
 	while (1) {
-		printf("è¯·è¾“å…¥æ‚¨è¦æ‰©å®¹çš„Vendoråˆ†åŒºå¤§å°(å•ä½ä¸ºMB,èŒƒå›´ä¸º1074~3072):"); //é™å®šèŒƒå›´ï¼Œé˜²æ­¢è¯¯æ“ä½œ
+		printf("ÇëÊäÈëÄúÒªÀ©ÈİµÄVendor·ÖÇø´óĞ¡(µ¥Î»ÎªMB,·¶Î§Îª1074~3072):"); //ÏŞ¶¨·¶Î§£¬·ÀÖ¹Îó²Ù×÷
 		if (scanf("%d", &partition_size) == 1) {
-			safe_flush(stdin); //æ¸…é™¤stdin
+			safe_flush(stdin); //Çå³ıstdin
 			if (partition_size <= 3072 && partition_size >= 1074)
 				return partition_size;
 			else {
-				printf("æ‚¨è¾“å…¥çš„æ•°æ®è¿‡å¤§æˆ–è¿‡å°,å‡ºäºä¿æŠ¤,è¯·æ‚¨é‡æ–°è¾“å…¥Vendoråˆ†åŒºå¤§å°\n");
+				printf("ÄúÊäÈëµÄÊı¾İ¹ı´ó»ò¹ıĞ¡,³öÓÚ±£»¤,ÇëÄúÖØĞÂÊäÈëVendor·ÖÇø´óĞ¡\n");
 				continue;
 			}
 		} else {
-			safe_flush(stdin); //æ¸…é™¤stdin
-			printf("æ‚¨è¾“å…¥çš„æ•°æ®æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥\n");
+			safe_flush(stdin); //Çå³ıstdin
+			printf("ÄúÊäÈëµÄÊı¾İÓĞÎó,ÇëÖØĞÂÊäÈë\n");
 			continue;
 		}
 	}
