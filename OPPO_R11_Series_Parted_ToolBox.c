@@ -639,8 +639,7 @@ int menu(void) {
 
 	bar1();
 	printf("       欢迎使用R11系列 Parted扩容工具箱       \n");
-	printf("                 作者:WenHao              \n");
-	printf("          未经允许，禁止用于付费远程        \n");
+	printf("   本软件代码托管在 GitHub 并采用 MPL 开源    \n");
 	bar1();
 	printf("     请确保您的TWRP版本为3.6.x/3.7.x       \n");
 	bar1();
